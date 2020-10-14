@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     stages {
@@ -14,6 +15,11 @@ pipeline {
          stage("Compile Test Stage") {
               steps {
                    sh "./gradlew test"
+              }
+         }
+         stage("Code Coverage") {
+              steps {
+                   sh "./gradlew jacocoTestCoverageVerification"
               }
          }
     }
