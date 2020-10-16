@@ -1,5 +1,4 @@
-
-pipeline {
+peline {
     agent any
     stages {
          stage("Checkout Stage") {
@@ -19,6 +18,17 @@ pipeline {
          }
          stage("Code Coverage") {
               steps {
+                   sh "./gradlew jacocoTestCoverageVerification"
+              }
+         }
+	 stage("Code coverage Report") {
+	      steps {
+                   sh "./gradlew jacocoTestReport"
+                   publishHTML (target: [
+                        reportDir: 'build/reports/jacoco/test/html',
+                        reportFiles: 'index.html',
+                        reportName: "JaCoCo Report"
+                   ])
                    sh "./gradlew jacocoTestCoverageVerification"
               }
          }
